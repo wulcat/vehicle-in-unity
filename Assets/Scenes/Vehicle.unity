@@ -121,24 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &237850810 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 47518822712744391, guid: 8a81b2381b4da4b438ee4e4d5be9a73a,
-    type: 3}
-  m_PrefabInstance: {fileID: 47518822879283581}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &237850811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 237850810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad42be76265e44e989632a422e710eeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1097472418
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,6 +397,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 237850811, guid: 8a81b2381b4da4b438ee4e4d5be9a73a, type: 3}
+      propertyPath: Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 237850811, guid: 8a81b2381b4da4b438ee4e4d5be9a73a, type: 3}
+      propertyPath: CDrag
+      value: 0.4257
+      objectReference: {fileID: 0}
+    - target: {fileID: 237850811, guid: 8a81b2381b4da4b438ee4e4d5be9a73a, type: 3}
+      propertyPath: EngineForce
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 237850811, guid: 8a81b2381b4da4b438ee4e4d5be9a73a, type: 3}
+      propertyPath: CRollingResistance
+      value: 12.8
+      objectReference: {fileID: 0}
     - target: {fileID: 47518822712744387, guid: 8a81b2381b4da4b438ee4e4d5be9a73a,
         type: 3}
       propertyPath: m_RootOrder
