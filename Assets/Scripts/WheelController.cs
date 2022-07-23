@@ -11,10 +11,27 @@ public class WheelController : MonoBehaviour
     public Vector3 Weight;
     public float AngularVelocity; // | rad/s |
 
+    public Transform Child;
+
+    private void Start()
+    {
+        Child = transform.GetChild(0);
+    }
+
     public void Update()
     {
         // TODO: clamp the angular velocty
-        transform.rotation *= Quaternion.AngleAxis(AngularVelocity, Vector3.right);
+        Child.rotation *= Quaternion.AngleAxis(AngularVelocity, Vector3.right);
+        //var rotation = transform.rotation.eulerAngles;
+        //rotation.x += AngularVelocity;
+        //transform.rotation = Quaternion.Euler(rotation);
+    }
+
+    public void Rotate(float steeringAngle)
+    {
+        //transform.rotation *= Quaternion.AngleAxis(steeringAngle, Vector3.up);
+        var localRotation = transform.rotation.eulerAngles;
+        transform.rotation = Quaternion.Euler(localRotation.x, steeringAngle * Mathf.Rad2Deg, localRotation.z);
     }
 
     public void OnDrawGizmos()

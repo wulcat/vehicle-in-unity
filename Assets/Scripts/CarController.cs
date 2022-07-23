@@ -19,6 +19,7 @@ public class CarController : MonoBehaviour
     
     [Header("Wheels")]
     public float CWheelFriction = 1;
+    public float SteerRotationLimit = 45; // degree
 
 
     public Transform CenterOfMass;
@@ -81,6 +82,8 @@ public class CarController : MonoBehaviour
         {
             Brake(Speed, airDrag, rollingResistanceForce, ref totalLogitudnalForce);
         }
+
+        Turn();
 
         // Newton's second law
         Acceleration = totalLogitudnalForce / Mass;
@@ -209,5 +212,19 @@ public class CarController : MonoBehaviour
         //public float EngineTorque = 448; // N.m , we get this from engine's force (here its 2500 rpm) // we yield this value through graph
         // horse power = torque * rpm / 5252
         return 448;
+    }
+
+    private void Turn()
+    {
+        var steeringInput = Input.GetAxis("Horizontal");
+        var steeringAngle = steeringInput * SteerRotationLimit * Mathf.Deg2Rad;
+
+        for(var i = 0; i < FrontWheels.Length; i++)
+        {
+            FrontWheels[i].Rotate(steeringAngle);
+        }
+
+        Debug.DrawRay(RearWheels[0].transform.position, RearWheels[0].transform.right, Color.green);
+        Debug.DrawRay(FrontWheels[0].transform.position, FrontWheels[0].transform.right, Color.yellow);
     }
 }
