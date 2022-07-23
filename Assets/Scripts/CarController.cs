@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
+    public bool bIsTurningAllowed = false;
     public float EngineForce = 2500; // engine torque = 448 rpm
     public float BrakeForce = 1000; // Is this also supposed replaced with engine force (in rpm for braking?)
     
@@ -63,6 +64,11 @@ public class CarController : MonoBehaviour
 
         UpdateWheels();
 
+        if (bIsTurningAllowed)
+        {
+            Turn();
+        }
+
         // Accelerate (basically move forward)
         if (Input.GetKey(KeyCode.W)) // dons't work properly with backward as brake's become unresponsive || Input.GetKey(KeyCode.S))
         {
@@ -86,7 +92,7 @@ public class CarController : MonoBehaviour
             Brake(Speed, airDrag, rollingResistanceForce, ref totalLogitudnalForce);
         }
 
-        Turn();
+        
 
         // Newton's second law
         Acceleration = totalLogitudnalForce / Mass;

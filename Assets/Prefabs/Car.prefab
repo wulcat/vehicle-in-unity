@@ -428,6 +428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad42be76265e44e989632a422e710eeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bIsTurningAllowed: 0
   EngineForce: 100
   BrakeForce: 1000
   CAirDrag: 0.4257
@@ -445,7 +446,7 @@ MonoBehaviour:
   DifferentialRatio: 3.42
   TransmissionEfficacy: 0.7
   CWheelFriction: 1
-  SteerRotationLimit: 45
+  SteerRotationLimit: 26
   CenterOfMass: {fileID: 8248120752764994467}
   RearWheels:
   - {fileID: 2056427041845573064}
@@ -459,6 +460,7 @@ MonoBehaviour:
   MaxCenterOfMassHeight: 0
   MaxTractionForce: 0
   DriveForce: {x: 0, y: 0, z: 0}
+  WheelBase: 0
 --- !u!1 &8248120752764994476
 GameObject:
   m_ObjectHideFlags: 0
