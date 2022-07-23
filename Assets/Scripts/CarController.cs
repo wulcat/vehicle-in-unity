@@ -33,6 +33,7 @@ public class CarController : MonoBehaviour
     public float MaxCenterOfMassHeight; // calculated when vehicle is resting on ground
     public float MaxTractionForce;
     public Vector3 DriveForce;
+    public float WheelBase;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +42,8 @@ public class CarController : MonoBehaviour
         {
             MaxCenterOfMassHeight = Vector3.Distance(CenterOfMass.position, hit.point) + CCenterOfMassHeight;
         }
+
+        WheelBase = Vector3.Distance(FrontWheels[0].transform.position, RearWheels[0].transform.position);
     }
 
     // Update is called once per frame
@@ -140,7 +143,6 @@ public class CarController : MonoBehaviour
 
         Vector3 frontAxel = Vector3.zero;
         Vector3 rearAxel = Vector3.zero;
-        var wheelBase = Vector3.Distance(FrontWheels[0].transform.position, RearWheels[0].transform.position);
         float distanceTowardsGround = 0;
 
         if(Physics.Raycast(CenterOfMass.position, Vector3.down, out RaycastHit hitInfo))
@@ -177,8 +179,8 @@ public class CarController : MonoBehaviour
             var wheel = FrontWheels[i];
             //var wheelMass = wheel.Mass;
             var wheelWeight = Mass * Physics.gravity;
-            var frontWheelWeight = (Vector3.Distance(frontAxel, CenterOfMass.position) / wheelBase) * wheelWeight;
-            frontWheelWeight -= (distanceTowardsGround / wheelBase) * Mass * Acceleration;
+            var frontWheelWeight = (Vector3.Distance(frontAxel, CenterOfMass.position) / WheelBase) * wheelWeight;
+            frontWheelWeight -= (distanceTowardsGround / WheelBase) * Mass * Acceleration;
 
             wheel.AngularVelocity = Speed / (2 * Mathf.PI * wheel.Radius); // rad/s 
             //wheel.AngularVelocity = Speed / wheel.Radius; // | rad/s | 
@@ -192,8 +194,8 @@ public class CarController : MonoBehaviour
             var wheel = RearWheels[i];
             //var wheelMass = wheel.Mass;
             var wheelWeight = Mass * Physics.gravity;
-            var rearWheelWeight = (Vector3.Distance(rearAxel, CenterOfMass.position) / wheelBase) * wheelWeight;
-            rearWheelWeight += (distanceTowardsGround / wheelBase) * Mass * Acceleration;
+            var rearWheelWeight = (Vector3.Distance(rearAxel, CenterOfMass.position) / WheelBase) * wheelWeight;
+            rearWheelWeight += (distanceTowardsGround / WheelBase) * Mass * Acceleration;
             wheel.AngularVelocity = Speed / (2 * Mathf.PI * wheel.Radius); // rad/s
 
             var slipRatio = (wheel.AngularVelocity * wheel.Radius - Speed)/Speed;
@@ -224,7 +226,12 @@ public class CarController : MonoBehaviour
             FrontWheels[i].Rotate(steeringAngle);
         }
 
-        Debug.DrawRay(RearWheels[0].transform.position, RearWheels[0].transform.right, Color.green);
-        Debug.DrawRay(FrontWheels[0].transform.position, FrontWheels[0].transform.right, Color.yellow);
+        var radiusFromSteeringAngle = WheelBase / Mathf.Sin(steeringAngle);
+        var angularVelocityOfCar = Speed / radiusFromSteeringAngle; // rad/s
+
+        transform.rotation *= Quaternion.AngleAxis(angularVelocityOfCar, Vector3.up);
+
+        Debug.DrawRay(RearWheels[0].transform.position, RearWheels[0].transform.right * 5, Color.green);
+        Debug.DrawRay(FrontWheels[0].transform.position, FrontWheels[0].transform.right * radiusFromSteeringAngle, Color.yellow);
     }
 }

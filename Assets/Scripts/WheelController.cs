@@ -30,8 +30,8 @@ public class WheelController : MonoBehaviour
     public void Rotate(float steeringAngle)
     {
         //transform.rotation *= Quaternion.AngleAxis(steeringAngle, Vector3.up);
-        var localRotation = transform.rotation.eulerAngles;
-        transform.rotation = Quaternion.Euler(localRotation.x, steeringAngle * Mathf.Rad2Deg, localRotation.z);
+        var localRotation = transform.localRotation.eulerAngles;
+        transform.localRotation = Quaternion.Euler(localRotation.x, steeringAngle * Mathf.Rad2Deg, localRotation.z);
     }
 
     public void OnDrawGizmos()
