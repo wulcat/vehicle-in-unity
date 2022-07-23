@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mass: 10
+  Radius: 0.34
   Weight: {x: 0, y: 0, z: 0}
+  AngularVelocity: 0
 --- !u!1 &4042409577527741482
 GameObject:
   m_ObjectHideFlags: 0
